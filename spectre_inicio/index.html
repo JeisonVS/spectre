@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PAIDEIA - Plataforma Educativa PUCP</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="login">
+  <!-- BARRA SUPERIOR -->
+  <header id="header" class="site-header" role="banner">
+    <div class="head-content">
+      <a href="https://www.pucp.edu.pe" target="_blank" rel="noopener">
+        <img class="logo2021" src="https://pandora.pucp.edu.pe/pucp/c3/images/logo_pucp2021.svg" alt="PUCP" height="52"
+          decoding="async" />
+      </a>
+    </div>
+  </header>
+
+  <main id="cuerpo" class="page" role="main">
+    <!-- Título + idioma -->
+    <div class="page-head">
+      <div class="h1-logueo">
+        <h1>Está accediendo al servicio Campus Virtual</h1>
+        <p>Se requiere autenticación. Ingrese su usuario PUCP y contraseña, que son confidenciales.</p>
+      </div>
+
+      <div class="idioma">
+        <div class="cambiar">Change language:</div>
+        <a class="lang-btn" aria-label="Cambiar a inglés">
+          <img class="flag"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/640px-Flag_of_the_United_Kingdom.svg.png"
+            alt="" width="18" height="12" decoding="async" />
+          <span>English</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="logueo-sup" aria-hidden="true"></div>
+
+    <!-- ===== TARJETA (BLOQUE GRANDE) GRIS ===== -->
+    <section class="card" aria-label="Bloque de autenticación">
+      <!-- Panel aqua (bloque pequeño) -->
+      <div class="panel">
+        <form class="form" id="login-form" novalidate>
+          <!-- elemento “línea vertical” en la columna central -->
+          <div class="vline" aria-hidden="true"></div>
+
+          <div class="form__row">
+            <label for="username" class="label">Usuario:</label>
+            <input id="username" name="username" type="text" class="input" autocomplete="username" />
+          </div>
+
+          <div class="form__row">
+            <label for="password" class="label">Contraseña:</label>
+            <input id="password" name="password" type="password" class="input" autocomplete="current-password" />
+          </div>
+
+          <!-- Acciones: el “spacer” ocupa la columna de etiquetas para que el botón se alinee con los inputs -->
+          <div class="form__row form__row--actions">
+            <span class="spacer" aria-hidden="true"></span>
+            <div class="actions">
+              <button type="submit" class="submit">ACCEDER</button>
+              <a class="forgot">¿Olvidó su contraseña?</a>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Aviso de seguridad -->
+      <div class="logueo-pie">
+        <div class="warning-azul">
+          <span>Por razones de seguridad, no olvide cerrar la sesión, incluso <br>antes de cerrar el navegador. <a>Ver
+              normas del servicio</a></span>
+        </div>
+        <a class="volver">
+          <span class="volver-icon" aria-hidden="true">◀</span>
+          <span>Ir a directorio de servicios</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="site-footer" role="contentinfo">
+    © Pontificia Universidad Católica del Perú - 2012. <span>Todos los derechos reservados.</span><br />
+    Av. Universitaria 1801, San Miguel, Lima 32, Perú | <span>Teléfono</span> (511) 626-2000
+  </footer>
+
+
+  <div id="spectre-modal-overlay" class="modal-overlay">
+    <div class="modal-box">
+      <video id="spectre-video" class="modal-video" src="assets/rickroll.mp4" controls loop>
+        <p>Su navegador no soporta el elemento de video o el archivo no se encontró.</p>
+      </video>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

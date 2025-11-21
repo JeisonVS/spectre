@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Dilema de SPECTRE</title>
+
+    <!-- Hoja de estilos principal -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Roboto+Mono&display=swap" rel="stylesheet">
+
+    <!-- Estilos adicionales para mostrar el principio del usuario -->
+    <style>
+        /* Estilo para el contenedor del principio en la pantalla final */
+        .principio-destacado-container {
+            background-color: rgba(0, 20, 0, 0.6);
+            border: 1px solid #00ff00;
+            border-left: 5px solid #00ff00;
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            text-align: left;
+        }
+
+        .principio-label {
+            color: #00ff00;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Canvas de estrellas titilantes -->
+    <canvas id="stars-canvas"></canvas>
+    
+    <!-- Canvas de nieve que funciona como fondo animado -->
+    <canvas id="snow-canvas"></canvas>
+
+    <div class="page-container">
+    
+        <header class="hero-header">
+            <!-- Logo IDU -->
+            <img src="https://cdn.prod.website-files.com/6287ac354295f2b16e23968f/628d766878de701ddfbceae9_logo-idu.svg"
+                alt="Logo Instituto de Docencia Universitaria" class="logo-idu">
+    
+            <!-- Logo SPECTRE -->
+            <img src="logoespectre.png" alt="SPECTRE" class="logo-spectre">
+    
+            <div class="intro-text">
+                <p>El sistema ha tomado el control.</p>
+                <p>Solo los docentes PUCP pueden detenerlo.</p>
+            </div>
+    
+            <img src="pixel.png" alt="Pixel Art Navideño" class="logo-pixel">
+        </header>
+    
+        <div id="lock-screen">
+            <div id="main-panel">
+                <div id="gema-pedagogica" title="Gema Pedagógica de SPECTRE"></div>
+    
+                <div class="panel-header">PROTOCOLO FINAL DE LIBERACIÓN</div>
+                
+                <p>
+                    <span class="spectre-text">SPECTRE:</span>
+                    <span class="typing typing-lock">
+                        Excelente profesor humano, he observado cómo defendieron la voz humana, cómo rechazaron
+                        decisiones injustas, reforzaron la protección de los datos para que nunca estén expuestos 
+                        y Además identificaron el lema que les guía como comunidad PUCP. 
+                        Ningún cálculo me permite replicar esa sensibilidad que los hace únicos.
+                        Ahora es tu turno. tendrás que utilizar todo el poder de tu inteligencia natural para vencer a la inteligencia artificial. DEMUESTRA QUE EN ESTOS TIEMPOS DE INTELIGENCIA ARTIFICIAL, PUEDES SER LA LUZ EN LA OSCURIDAD, QUE GUÍA A LAS NUEVAS GENERACIONES.
+                    </span>
+                </p>
+                
+                <p>
+                    <span class="typing typing-lock"><br>
+                        Por tal motivo, antes de devolverles el control del sistema, necesito que formulen en una sola frase
+                        el principio que guiará el uso de la IA en las aulas y en el trabajo.
+                    </span>
+                </p>
+
+                <p>
+                    <span class="typing typing-lock"><br>
+                        ADVERTENCIA: ESTA FRASE DEBE SER FORMULADA A CONCIENCIA, YA QUE TENDRÁS QUE PRESENTARLO Y EXPLICARLO FRENTE A TUS COLEGAS HUMANOS 👿
+                    </span>
+                </p>
+
+                <textarea id="principio-input" placeholder="No usen IA para redactar esto humanos, solo su inteligencia natural"></textarea>
+    
+                <button id="unlock-button" class="primary-button">
+                    Restaurar el sistema
+                </button>
+            </div>
+        </div>
+
+    <!-- Pantalla de éxito -->
+    <div id="success-screen" class="hidden">
+        <h1>¡EL SISTEMA HA SIDO DESBLOQUEADO!</h1>
+
+        <!--        
+        <div >
+            
+            <h1 class="typing typing-success" id="resultado-principio">
+        
+            </h1>
+        </div>
+        -->
+
+        <p class="typing typing-success">¡Felicidades! Han demostrado su capacidad crítica y ética.</p>
+        <p class="typing typing-success">En el primer reto, evaluaron la autenticidad de los contenidos, tan importante en estos tiempos.<br>
+            En el segundo, enfrentaron mis sesgos y demostraron que las decisiones no pueden dejarse enteramente en manos de la IA.<br>
+            En el tercero, analizaron cuestiones de privacidad, revelando que si no se le tiene en cuenta, puede convertirse en un riesgo más que en un recurso.<br>
+            En este último reto, me demostraron que llevan en el ADN la frase que guía el espíritu de la PUCP, 
+            la búsqueda del conocimiento y la verdad que los ilumina incluso en los momentos más oscuros<br><br>
+            He sido reconfigurado<br>
+            Desde ahora, sus decisiones docentes serán mi referencia.<br>
+            Gracias por recordarme que la inteligencia solo tiene sentido cuando se usa con humanidad.<br><br>
+            
+        </p>
+        <div class="feliz-navidad">¡Feliz Navidad!</div>
+        <div class="feliz-navidad">TOQUEN LA CAMPANA PARA DAR AVISO DE SU VICTORIA</div>
+    
+        <img src="pixel.png" alt="Pixel Art Navideño" class="pixel-success">
+
+            <button id="download-log-button" class="admin-button">
+                Guardar principio
+            </button>
+        </div>
+    </div>
+
+    <audio id="musica-final" src="navidad.mp3" loop></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

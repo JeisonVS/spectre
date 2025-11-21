@@ -1,0 +1,600 @@
+/* =========================================
+   1. Variables y configuración global
+   ========================================= */
+
+/* Fuente pixel */
+@font-face {
+    font-family: 'Ari W9500';
+    src: url('https://font-repo.s3.amazonaws.com/ariw9500.ttf') format('truetype');
+}
+
+:root {
+    /* Paleta de colores */
+    --color-bg-dark: #00001a;
+    --color-bg-light: #0d0030;
+    --color-panel-bg: rgba(10, 25, 47, 0.75);
+    --color-text-main: #e0e0e0;     /* texto normal */
+    --color-cyan: #00ffea;          /* texto celeste (intro-text, SPECTRE, etc.) */
+    --color-gold: #f0b35f;          /* botones y acentos dorados */
+    --color-gold-hover: #ffec80;
+    --color-red-error: #ff6b6b;     /* mensajes de error / Feliz Navidad */
+    --color-green-success: #f4f7f1; /* título de éxito */
+
+    /* Fondo tipo “escáner” */
+    --color-fondo-base: #050a1e;
+    --color-fondo-linea: #0e132c;
+
+    /* Fuentes: todo el sistema usa Ari W9500 */
+    --font-mono: 'Ari W9500', monospace;
+    --font-christmas: 'Ari W9500', monospace;
+    --font-pixel: 'Ari W9500', monospace;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--color-fondo-base);
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 2px,
+        var(--color-fondo-linea) 2px,
+        var(--color-fondo-linea) 3px
+    );
+    color: var(--color-text-main);
+    font-family: var(--font-mono);
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* Estrellas y nieve de fondo */
+#stars-canvas,
+#snow-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Orden de capas: primero estrellas, luego nieve */
+#stars-canvas { z-index: 1; }
+#snow-canvas  { z-index: 2; }
+
+/* =========================================
+   2. Layout principal y cabecera (diseño afiche)
+   ========================================= */
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* Centra todo lo que sea de ancho fijo */
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 1.5rem 1rem;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo IDU superior */
+.logo-idu {
+    display: block;
+    max-width: 220px;
+    height: auto;
+    margin: 0 auto 3rem;    /* centrado + espacio hacia abajo */
+}
+
+/* Logo SPECTRE central */
+.logo-spectre {
+    display: block;
+    max-width: 500px;
+    height: auto;
+    margin: 0 auto 1rem;    /* centrado + espacio hacia el texto */
+}
+
+/* Texto celeste: “El sistema ha tomado el control…” */
+.intro-text {
+    font-family: var(--font-pixel);
+    color: var(--color-cyan);
+    font-size: 1.25rem;
+    line-height: 1.2;
+    text-align: center;
+
+    margin-top: 0;           /* respecto al logo SPECTRE */
+    margin-bottom: 2rem;     /* respecto al pixel navideño */
+
+    padding: 0;
+    border: none;
+    background: none;
+    max-width: 100%;
+    width: auto;
+    box-sizing: border-box;
+}
+
+.intro-text p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Pixel art navideño */
+.logo-pixel {
+    display: block;
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto 0.5rem;   /* centrado + distancia con el panel (#lock-screen) */
+}
+
+/* =========================================
+   3. Componentes interactivos (funcionalidad)
+   ========================================= */
+
+#lock-screen {
+    z-index: 10;
+    width: 100%;
+    max-width: 90%;
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+#main-panel {
+    text-align: center;
+}
+
+/* Contenedor del texto SPECTRE...*/
+#main-panel p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0.5rem auto;
+    text-align: justify;
+    max-width: 70%;
+}
+
+/* Elementos que el script usa pero que no se muestran visualmente */
+#gema-pedagogica,
+.panel-header {
+    display: none;
+}
+
+/* Textos destacados */
+.spectre-text {
+    color: var(--color-cyan);
+    font-weight: bold;
+}
+
+.highlight {
+    color: var(--color-gold);
+    font-weight: bold;
+}
+
+/* Campo de textarea para que escriban el principio pedagógico */
+#principio-input {
+    width: 100%;
+    max-width: 70%;
+    padding: 12px;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--color-cyan);
+    border-radius: 5px;
+    color: #ffffff;
+    margin: 1rem auto 0 auto;
+    resize: vertical;
+    box-sizing: border-box;
+    display: block;
+}
+
+#principio-input:focus {
+    outline: none;
+    border-color: var(--color-gold);
+    box-shadow: 0 0 10px var(--color-gold);
+}
+
+/* Botones genéricos (desbloqueo y botones de modal) */
+#unlock-button,
+.modal-button {
+    width: 100%;
+    max-width: 300px;
+    padding: 15px;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: bold;
+    color: #000;
+    background: var(--color-gold);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 1.5rem auto 0 auto;
+    display: block;
+}
+
+#unlock-button:hover,
+.modal-button:hover {
+    background: var(--color-gold-hover);
+    box-shadow: 0 0 20px var(--color-gold);
+}
+
+/* =========================================
+   4. Pantalla de éxito
+   ========================================= */
+#success-screen {
+    position: fixed;
+    inset: 0;                 /* top:0; right:0; bottom:0; left:0 */
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* ya no centrado total: empieza arriba */
+    align-items: center;
+    padding: 3rem 1.5rem 2rem;   /* espacio interno para título y texto */
+    box-sizing: border-box;
+
+    overflow-y: auto;           /* permite hacer scroll si el contenido es alto */
+    z-index: 20;
+    text-align: center;
+    color: #fff;
+    animation: fadeIn 2s ease-in;
+
+    background-color: transparent;
+    background-image: none;
+}
+
+#success-screen h1 {
+    font-family: var(--font-christmas);
+    font-size: 2.4rem;
+    color: var(--color-green-success);
+    text-shadow: 0 0 10px var(--color-green-success);
+    margin: 0 0 1.5rem 0;
+    line-height: 1.2;
+}
+
+/* Texto narrativo: justificado, pero con ancho controlado */
+#success-screen p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    max-width: 90%;      /* límite cómodo para pantallas grandes */
+    width: 100%;
+    text-align: justify;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.feliz-navidad {
+    font-family: var(--font-christmas);
+    font-size: 3.2rem;
+    color: var(--color-red-error);
+    text-shadow: 0 0 10px var(--color-red-error);
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    animation: pulse-christmas 1.5s infinite ease-in-out;
+}
+
+/* Pixel navideño en la pantalla de éxito */
+.pixel-success {
+    display: block;
+    max-width: 260px;
+    height: auto;
+    margin: 0 auto 1.5rem auto;
+}
+
+/* Botón para guardar el principio (admin) */
+.admin-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 12px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-gold);
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--color-gold);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.admin-button:hover {
+    background: var(--color-gold);
+    color: #000;
+}
+
+/* =========================================
+   5. Modales (pistas y errores)
+   ========================================= */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1); /* ajustar según la necesidad de transparencia*/
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    /* Caja translúcida: deja ver nieve y estrellas detrás */
+    background-color: rgba(5, 10, 30, 0.8);  /* fondo oscuro semi-transparente */
+    background-image: none;                  /* sin patrón adicional ni fondo.png */
+
+    border: 2px solid var(--color-red-error);
+    border-radius: 10px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 40px rgba(255, 107, 107, 0.3);
+    text-align: center;
+    animation: fadeIn 0.3s ease-out;
+
+    /* Para poder posicionar la capa de estrellas en la ventana modal*/
+    position: relative;
+    overflow: hidden;  /* evita que se salgan por los bordes */
+}
+
+/* Capa de estrellas dentro del modal (más densas y de varios tamaños) */
+.modal-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    /* Estrellas superpuestas, con tamaños distintos */
+    background:
+        /* Estrellas pequeñas */
+        radial-gradient(circle at 8% 18%,  rgba(255, 230, 120, 0.9) 0 1px,  transparent 2px),
+        radial-gradient(circle at 18% 35%, rgba(255, 230, 120, 0.8) 0 1px,  transparent 2px),
+        radial-gradient(circle at 28% 52%, rgba(255, 230, 120, 0.85) 0 1px, transparent 2px),
+        radial-gradient(circle at 40% 22%, rgba(255, 230, 120, 0.9) 0 1px,  transparent 2px),
+        radial-gradient(circle at 62% 18%, rgba(255, 230, 120, 0.8) 0 1px,  transparent 2px),
+        radial-gradient(circle at 72% 40%, rgba(255, 230, 120, 0.9) 0 1px,  transparent 2px),
+        radial-gradient(circle at 84% 28%, rgba(255, 230, 120, 0.75) 0 1px, transparent 2px),
+        radial-gradient(circle at 90% 48%, rgba(255, 230, 120, 0.8) 0 1px,  transparent 2px),
+
+        /* Estrellas medianas */
+        radial-gradient(circle at 14% 65%, rgba(255, 230, 120, 0.9) 0 1.5px, transparent 3px),
+        radial-gradient(circle at 32% 72%, rgba(255, 230, 120, 0.85) 0 1.5px, transparent 3px),
+        radial-gradient(circle at 50% 60%, rgba(255, 230, 120, 0.9) 0 1.5px,  transparent 3px),
+        radial-gradient(circle at 68% 70%, rgba(255, 230, 120, 0.85) 0 1.5px, transparent 3px),
+        radial-gradient(circle at 82% 62%, rgba(255, 230, 120, 0.9) 0 1.5px,  transparent 3px),
+
+        /* Estrellas grandes */
+        radial-gradient(circle at 22% 30%, rgba(255, 230, 120, 0.95) 0 2.5px, transparent 4px),
+        radial-gradient(circle at 55% 25%, rgba(255, 230, 120, 0.95) 0 2.8px, transparent 4px),
+        radial-gradient(circle at 78% 18%, rgba(255, 230, 120, 0.95) 0 2.5px, transparent 4px),
+        radial-gradient(circle at 35% 85%, rgba(255, 230, 120, 0.95) 0 2.8px, transparent 4px),
+        radial-gradient(circle at 70% 88%, rgba(255, 230, 120, 0.95) 0 2.5px, transparent 4px);
+
+    opacity: 0.9; /* más presencia que antes */
+    animation: modalStarsTwinkle 1s infinite ease-in-out;
+}
+
+/* Aseguramos que el contenido del modal quede por encima de las estrellas */
+.modal-box > * {
+    position: relative;
+    z-index: 1;
+}
+
+.modal-title {
+    font-family: var(--font-pixel);
+    font-size: 1.5rem;
+    color: var(--color-red-error);
+    margin: 0 0 1.5rem 0;
+}
+
+.modal-message {
+    font-family: var(--font-pixel);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--color-text-main);
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.modal-message strong {
+    color: var(--color-gold);
+}
+
+/* =========================================
+   6. Animaciones y utilitarios
+   ========================================= */
+
+@keyframes pulse-gema {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(154, 140, 152, 0.5);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(154, 140, 152, 0.8);
+    }
+}
+
+@keyframes pulse-christmas {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.error-shake {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+    10%,
+    90% { transform: translate3d(-1px, 0, 0); }
+    20%,
+    80% { transform: translate3d(2px, 0, 0); }
+    30%,
+    50%,
+    70% { transform: translate3d(-4px, 0, 0); }
+    40%,
+    60% { transform: translate3d(4px, 0, 0); }
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes modalStarsTwinkle {
+    0%   { opacity: 0.3; }
+    50%  { opacity: 0.8; }
+    100% { opacity: 0.4; }
+}
+
+/* =========================================
+   7. Media queries (responsividad)
+   ========================================= */
+
+/* Tablets y laptops pequeñas */
+@media (max-width: 1024px) {
+    .logo-spectre { max-width: 400px; }
+    .logo-pixel   { max-width: 250px; }
+
+    #lock-screen {
+        max-width: 90%;
+    }
+
+    #main-panel p {
+        max-width: 650px;
+    }
+
+    #success-screen h1 {
+        font-size: 2.1rem;
+    }
+}
+
+/* Móviles */
+@media (max-width: 600px) {
+    html,
+    body {
+        padding: 0;
+    }
+
+    .page-container {
+        padding: 1rem;
+    }
+
+    .logo-idu {
+        max-width: 160px;
+        margin-bottom: 0.75rem;
+    }
+
+    .logo-spectre {
+        max-width: 260px;
+    }
+
+    .logo-pixel {
+        max-width: 200px;
+    }
+
+    .intro-text {
+        font-size: 0.95rem;
+        width: 100%;
+    }
+
+    #lock-screen {
+        width: 100%;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+    }
+
+    #main-panel p {
+        font-size: 0.95rem;
+        max-width: 100%;
+    }
+
+    #principio-input {
+        max-width: 100%;
+    }
+
+    #unlock-button,
+    .modal-button {
+        width: 100%;
+        max-width: none;
+        padding: 12px;
+    }
+
+    /* Ajustes pantalla de éxito en móvil */
+    #success-screen {
+        padding-top: 2.5rem;    /* un poco menos de padding para ganar altura */
+    }
+
+    #success-screen h1 {
+        font-size: 1.7rem;
+        margin-bottom: 1rem;
+    }
+
+    #success-screen p {
+        font-size: 1rem;
+        line-height: 1.5;
+        max-width: 100%;
+    }
+
+    .feliz-navidad {
+        font-size: 2.2rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .pixel-success {
+        max-width: 200px;
+        margin-bottom: 1rem;
+    }
+
+    /* Modal en móvil */
+    .modal-box {
+        padding: 1.5rem;
+        width: 95%;
+    }
+
+    .modal-title   { font-size: 1.4rem; }
+    .modal-message { font-size: 1rem; }
+}
+
+/* =========================================
+   Fondo opcional con imagen fondo.png
+   ========================================= */
+
+/* Cuando el <body> tenga la clase "fondo-imagen",
+   se usará fondo.png en lugar del degradado CSS. */
+body.fondo-imagen {
+    background-color: #050a1e;          /* color base oscuro */
+    background-image: url('fondo.png'); /* imagen de fondo */
+    background-repeat: no-repeat;       /* que no se repita en mosaico */
+    background-position: center center; /* centrada */
+    background-size: cover;             /* responsive: cubre toda la pantalla */
+    background-attachment: fixed;       /* efecto “pegado” al scroll (opcional) */
+}

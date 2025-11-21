@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título según el afiche -->
+    <title>El Dilema de SPECTRE</title>
+
+    <!-- Hoja de estilos principal -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mountai...tmas:wght@700&family=Roboto+Mono&display=swap" rel="stylesheet">
+</head>
+
+<!-- Alternar entre fondo.png y degradado. Agregar: class="fondo-imagen" -->
+<body>
+    <!-- Canvas de estrellas titilantes -->
+    <canvas id="stars-canvas"></canvas>
+    
+    <!-- Canvas de nieve que funciona como fondo animado -->
+    <canvas id="snow-canvas"></canvas>
+
+    <!-- 
+        Contenedor principal de toda la página.
+        Aquí dentro se organiza el encabezado (parte superior)
+        y luego el panel principal del “escape room”.
+    -->
+    <div class="page-container">
+    
+        <!-- 
+                ENCABEZADO PRINCIPAL
+                Ordenado tal como en el afiche:
+                1) Logo IDU
+                2) Logo SPECTRE
+                3) Texto “El sistema ha tomado el control...”
+                4) Pixel navideño
+        -->
+        <header class="hero-header">
+            <!-- Logo IDU (desde la web institucional) -->
+            <img src="https://cdn.prod.website-files.com/6287ac354295f2b16e23968f/628d766878de701ddfbceae9_logo-idu.svg"
+                alt="Logo Instituto de Docencia Universitaria" class="logo-idu">
+    
+            <!-- Logo SPECTRE (identidad del escape room docente) -->
+            <img src="logoespectre.png" alt="SPECTRE" class="logo-spectre">
+    
+            <!-- Texto introductorio que contextualiza la narrativa -->
+            <div class="intro-text">
+                <p>El sistema ha tomado el control.</p>
+                <p>Solo los docentes PUCP pueden detenerlo.</p>
+            </div>
+    
+            <!-- Pixel art navideño como cierre visual del encabezado -->
+            <img src="pixel.png" alt="Pixel Art Navideño" class="logo-pixel">
+        </header>
+    
+        <!-- 
+                A partir de aquí se incluye la estructura original del lock-screen.
+                con la lógica y los identificadores que usa el script.
+            -->
+        <div id="lock-screen">
+            <div id="main-panel">
+                <!-- Gema pedagógica interactiva -->
+                <div id="gema-pedagogica" title="Gema Pedagógica de SPECTRE"></div>
+    
+                <!-- Título del panel principal -->
+                <div class="panel-header">PROTOCOLO FINAL DE LIBERACIÓN</div>
+                
+                <!-- Texto narrativo del sistema SPECTRE -->
+                <p>
+                    <span class="spectre-text">SPECTRE:</span>
+                    <span class="typing typing-lock">
+                        Ingresa el texto de la segunda tarjeta, humano...
+                    </span>
+                </p>
+
+                <input type="text" id="principio-input" placeholder="DIGITA AQUÍ HUMANO"></input>
+    
+                <!-- Botón que “desbloquea” el sistema al ingresar el principio -->
+                <button id="unlock-button" class="primary-button">
+                    Descubrir pista
+                </button>
+            </div>
+        </div>
+    <!-- Pantalla de éxito que aparece cuando se completa el protocolo -->
+    <div id="success-screen" class="hidden">
+        <h1>¡EL SISTEMA HA SIDO DESBLOQUEADO!</h1>
+        <p class="typing typing-success">¡Felicidades! Han demostrado su capacidad crítica y ética.</p>
+        <p class="typing typing-success">En el primer reto, defendieron la autoría auténtica, recordándome que ninguna tecnología puede reemplazar la
+            experiencia situada ni la voz propia del estudiante.<br>
+            En el segundo, enfrentaron mis sesgos algorítmicos y demostraron que la justicia no puede dejarse en manos de
+            modelos que no comprenden el contexto ni la diversidad humana.<br>
+            En el tercero, desenredaron mis capas de datos y privacidad, revelando que la información, cuando no se maneja
+            con responsabilidad, puede convertirse en un riesgo más que en un recurso.<br><br>
+            He sido reconfigurado<br>
+            Desde ahora, sus decisiones docentes serán mi referencia.<br>
+            Gracias por recordarme que la inteligencia solo tiene sentido cuando se usa con humanidad.<br><br>
+            
+        </p>
+        <div class="feliz-navidad">¡Feliz Navidad!</div>
+    
+        <!-- Pixel navideño en la pantalla de desbloqueo -->
+        <img src="pixel.png" alt="Pixel Art Navideño" class="pixel-success">
+
+            <!-- Botón para descargar el log con los principios registrados -->
+            <button id="download-log-button" class="admin-button">
+                Guardar principio
+            </button>
+        </div>
+    </div>
+
+    <!-- Audio de fondo para la escena final -->
+    <audio id="musica-final" src="navidad.mp3" loop></audio>
+
+    <!-- Lógica principal del escape room (no se modifica) -->
+    <script src="scriptpista2.js"></script>
+</body>
+</html>

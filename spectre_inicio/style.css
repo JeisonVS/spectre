@@ -1,0 +1,701 @@
+/* ===========================
+   PALETA Y BASE
+=========================== */
+:root {
+  /* barra superior */
+  --navy-900: #042354;
+  /* fondo general */
+  --page-bg: #e9e9e9;
+  /* tarjeta grande (gris) */
+  --card-bg: #e9e9e9;
+  --card-border: #d0d0d0;
+  --card-shadow: 15px 15px 15px rgba(126, 123, 123, 0.1);
+  /* panel aqua */
+  --aqua-100: #a4ddde;
+  --aqua-50: #a8d3d6;
+  /* textos */
+  --t-900: #4a5568;
+  --t-700: #5a5a5a;
+  /* líneas */
+  --rule: #d8d8d8;
+  --vline: #b7cdd1;
+  /* botón */
+  --btn: #002952;
+  --btn-hover: #002952;
+  /* footer */
+  --footer: #3b6a87;
+}
+
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  height: 100%
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--t-900);
+  background: var(--page-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+.site-header {
+  background: var(--navy-900);
+  padding: 16px 24px;
+}
+
+.head-content {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.logo2021 {
+  height: 48px;
+  width: auto;
+  display: block
+}
+
+/* ===========================
+   CONTENIDO
+=========================== */
+.page {
+  max-width: 1040px;
+  width: 92%;
+  margin: 32px auto 32px;
+  flex: 1 0 auto;
+}
+
+.page-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.h1-logueo h1 {
+  margin: 0 0 8px 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #4a5568;
+  line-height: 1.3;
+}
+
+.h1-logueo p {
+  margin: 0;
+  color: var(--t-700);
+  font-size: .93rem;
+}
+
+/* idioma */
+.idioma {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap
+}
+
+.cambiar {
+  font-size: .88rem;
+  color: #5a5a5a
+}
+
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #c0c0c0;
+  background: #e2e2e2;
+  padding: 5px 10px;
+  border-radius: 2px;
+  font-size: .75rem;
+  color: #1a5a9c;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.lang-btn:hover {
+  background: #d8d8d8
+}
+
+.flag {
+  height: 14px;
+  width: auto;
+  display: block
+}
+
+/* Ocultar la imagen de la bandera del HTML y usar la del CSS */
+.lang-btn img.flag {
+  display: none;
+}
+
+/* Agregar bandera con CSS */
+.lang-btn::before {
+  content: '';
+  display: inline-block;
+  width: 25px;
+  height: 20px;
+  background-image: url('https://img.freepik.com/fotos-premium/ondeando-bandera-inglaterra_50039-935.jpg?semt=ais_hybrid&w=740&q=80');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.logueo-sup {
+  height: 0;
+  border-top: 0px solid var(--rule)
+}
+
+/* ===========================
+   TARJETA (BLOQUE GRANDE)
+=========================== */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 1px;
+  box-shadow: var(--card-shadow);
+  padding: 15px 15px 45px;
+}
+
+/* Panel aqua */
+.panel {
+  padding: 35px 50px;
+  background: var(--aqua-100);
+  border: 1px solid var(--aqua-50);
+  border-radius: 1px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+/* ===========================
+   FORMULARIO
+=========================== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Línea vertical decorativa - oculta por defecto */
+.vline {
+  display: none;
+}
+
+/* filas semánticas (etiqueta + campo) */
+.form__row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.label {
+  font-weight: 700;
+  font-size: .93rem;
+  color: #4a5568;
+  text-align: right;
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  max-width: 360px;
+  padding: 6px 12px;
+  border: 1px solid #d8d7d7;
+  border-radius: 1px;
+  background: #fff;
+  font-size: .9rem;
+}
+
+.input:focus {
+  outline: 0px solid #4a8b93;
+  border-color: #4a8b93;
+}
+
+/* Acciones */
+.form__row--actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.form__row--actions .spacer {
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+
+.submit {
+  appearance: none;
+  border: 0;
+  border-radius: 2px;
+  background: var(--btn);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .03em;
+  padding: 10px 28px;
+  cursor: pointer;
+  font-size: .97rem;
+  text-transform: uppercase;
+}
+
+.submit:hover {
+  background: var(--btn-hover)
+}
+
+.forgot {
+  color: #1a6b9c;
+  font-size: .88rem;
+  text-decoration: underline;
+}
+
+.forgot:hover {
+  text-decoration: underline
+}
+
+/* ===========================
+   AVISO DENTRO DE LA TARJETA
+=========================== */
+.logueo-pie {
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid #e9e9e9;
+  border-radius: 0;
+  padding: 20px 0 0 0;
+}
+
+.warning-azul {
+  flex: 1;
+  font-size: .88rem;
+  line-height: 1.5;
+  color: #5a5a5a;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* Agregar icono de advertencia */
+.warning-azul::before {
+  content: '';
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background-image: url('https://pandora.pucp.edu.pe/pucp/c3/css/images/warning_azul.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.warning-azul a {
+  color: #1a6b9c;
+  text-decoration: underline;
+}
+
+.warning-azul a:hover {
+  text-decoration: underline
+}
+
+.volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  color: #1a6b9c;
+  text-decoration: underline;
+  font-size: .88rem;
+  flex-shrink: 0;
+}
+
+.volver:hover {
+  text-decoration: underline
+}
+
+/* Ocultar el ícono del HTML */
+.volver-icon {
+  display: none;
+}
+
+/* Agregar icono con CSS */
+.volver::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background-image: url('https://pandora.pucp.edu.pe/pucp/c3/css/images/anti_bullet.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+.site-footer {
+  background: var(--footer);
+  color: #fff;
+  text-align: center;
+  padding: 20px 10px;
+  font-size: .85rem;
+  line-height: 1.5;
+}
+
+.site-footer span {
+  opacity: .95
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 980px) {
+  .form {
+    max-width: 100%;
+    padding: 0 20px
+  }
+}
+
+@media (max-width: 760px) {
+  .page-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px
+  }
+
+  .panel {
+    padding: 32px 20px
+  }
+
+  /* Formulario apilado en móvil */
+  .form__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .label {
+    text-align: left;
+    min-width: auto;
+  }
+
+  .input {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .form__row--actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .form__row--actions .spacer {
+    display: none;
+  }
+
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .logueo-pie {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+    align-items: center;
+  }
+
+  flex-shrink: 0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+
+.submit {
+  appearance: none;
+  border: 0;
+  border-radius: 2px;
+  background: var(--btn);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .03em;
+  padding: 10px 28px;
+  cursor: pointer;
+  font-size: .97rem;
+  text-transform: uppercase;
+}
+
+.submit:hover {
+  background: var(--btn-hover)
+}
+
+.forgot {
+  color: #1a6b9c;
+  font-size: .88rem;
+  text-decoration: underline;
+}
+
+.forgot:hover {
+  text-decoration: underline
+}
+
+/* ===========================
+   AVISO DENTRO DE LA TARJETA
+=========================== */
+.logueo-pie {
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid #e9e9e9;
+  border-radius: 0;
+  padding: 20px 0 0 0;
+}
+
+.warning-azul {
+  flex: 1;
+  font-size: .88rem;
+  line-height: 1.5;
+  color: #5a5a5a;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* Agregar icono de advertencia */
+.warning-azul::before {
+  content: '';
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background-image: url('https://pandora.pucp.edu.pe/pucp/c3/css/images/warning_azul.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.warning-azul a {
+  color: #1a6b9c;
+  text-decoration: underline;
+}
+
+.warning-azul a:hover {
+  text-decoration: underline
+}
+
+.volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  color: #1a6b9c;
+  text-decoration: underline;
+  font-size: .88rem;
+  flex-shrink: 0;
+}
+
+.volver:hover {
+  text-decoration: underline
+}
+
+/* Ocultar el ícono del HTML */
+.volver-icon {
+  display: none;
+}
+
+/* Agregar icono con CSS */
+.volver::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background-image: url('https://pandora.pucp.edu.pe/pucp/c3/css/images/anti_bullet.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+.site-footer {
+  background: var(--footer);
+  color: #fff;
+  text-align: center;
+  padding: 20px 10px;
+  font-size: .85rem;
+  line-height: 1.5;
+}
+
+.site-footer span {
+  opacity: .95
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 980px) {
+  .form {
+    max-width: 100%;
+    padding: 0 20px
+  }
+}
+
+@media (max-width: 760px) {
+  .page-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px
+  }
+
+  .panel {
+    padding: 32px 20px
+  }
+
+  /* Formulario apilado en móvil */
+  .form__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .label {
+    text-align: left;
+    min-width: auto;
+  }
+
+  .input {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .form__row--actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .form__row--actions .spacer {
+    display: none;
+  }
+
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .logueo-pie {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .warning-azul {
+    text-align: center;
+  }
+}
+
+/* ===========================
+   MODAL SPECTRE
+=========================== */
+
+/* Fondo semitransparente + blur */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Caja principal del modal, con borde rojo */
+.modal-box {
+  background-color: #333;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  max-width: 70%;
+  box-shadow: 0 10px 25px rgba(255, 0, 0, 0.5);
+  border: 2px solid red;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Capa de estrellas (más densas y de distintos tamaños) */
+
+
+.modal-video {
+  /* **DIMENSIONES DEL VIDEO AJUSTADAS** */
+  width: 100%;
+  height: auto;
+  /* Dejar que la altura se ajuste automáticamente */
+  max-height: 80vh;
+  /* Máximo 80% del alto del viewport */
+  border-radius: 0.5rem;
+  background-color: black;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+/* Reuso del fadeIn que ya tienes (o lo puedes dejar tal cual esté definido) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Versión responsive del modal */
+@media (max-width: 600px) {
+  .modal-box {
+    padding: 1.5rem;
+    width: 95%;
+  }
+}
